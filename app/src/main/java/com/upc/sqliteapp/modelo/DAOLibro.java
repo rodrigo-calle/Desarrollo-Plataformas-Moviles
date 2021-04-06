@@ -46,6 +46,39 @@ public class DAOLibro {
          }
     }
 
+    public void modificarLibro(Libro libro){
+        try{
+            ContentValues valores = new ContentValues();
+            valores.put("titulo", libro.getTitulo());
+            valores.put("autor", libro.getAutor());
+            valores.put("npaginas", libro.getPaginas());
+            long resultado = db.update(Constantes.NOMBRE_TABLA, valores, "id="+libro.getId(), null);
+            if (resultado == -1){
+                Toast.makeText(context, "Error al actualizar", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(context, "Se actualizó correctamente", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void eliminarLibro(int id){
+        try{
+            long resultado = db.delete(Constantes.NOMBRE_TABLA, "id="+id, null);
+            if (resultado == -1){
+                Toast.makeText(context, "Error al eliminar", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(context, "Se eliminó correctamente", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
     //metodo para mostrar libros
     public ArrayList<Libro> mostrarLibros(){
         ArrayList<Libro> listaLibros = new ArrayList<>();
